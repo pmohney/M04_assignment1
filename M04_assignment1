@@ -1,0 +1,50 @@
+// 11/13/23
+// Pierce Mohney
+// SDEV 200
+// Assignment 4-1
+//This program will check if brackets are in the correct order and return with whether they are or not. 
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class BracketChecker {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter a string");
+        String input = scanner.nextLine();
+
+        if (checkBrackets(input)) {
+            System.out.println("The brackets are correctly organized");
+        } else {
+            System.out.println("Error: The brackets are not correctly organized");
+        }
+    }
+//Prompts user to input brackets and contains return output messages
+
+    private static boolean checkBrackets(String input) {
+        Stack<Character> stack = new Stack<>();
+
+        for (char ch : input.toCharArray()) {
+            if (ch == '(' || ch == '{' || ch == '[') {
+                stack.push(ch);
+            } else if (ch == ')' || ch == '}' || ch == ']') {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+
+                char top = stack.pop();
+
+                if ((ch == ')' && top != '(') ||
+                    (ch == '}' && top != '{') ||
+                    (ch == ']' && top != '[')) {
+                    return false;
+                }
+            }
+        }
+
+        return stack.isEmpty();
+    }
+}
+//Checks whether or not ecah set of brackets are correctly organized from input
